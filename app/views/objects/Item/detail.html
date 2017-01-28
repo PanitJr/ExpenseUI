@@ -1,0 +1,80 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span >{{detail.label}}</span>
+    <span flex="" class="flex"></span>
+    <md-button class="md-raised" href="#/{{detail.objectName}}/edit/{{detail.record}}" >EDIT</md-button>
+    <md-button class="md-raised" ng-click="detail.deleteRecord($event)" >DELETE Item</md-button>
+  </div>
+</md-toolbar>
+
+<section class="md-whiteframe-z1" ng-repeat="block in detail.blocks" flex>
+    <md-toolbar class="demo-toolbar md-primary">
+        <div class="md-toolbar-tools">
+            <h3 class="ng-binding">{{block.blocklabel}}</h3>
+        </div>
+    </md-toolbar>
+    <md-content class="md-padding">
+        <div layout="row" layout-wrap >
+            <div flex="50" layout="row"  ng-repeat="field in block.fields">
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>  {{field.fieldlabel}}</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data[field.fieldname]}}
+                </div>
+            </div>
+        </div>
+    </md-content>
+</section>
+<section class="md-whiteframe-z1" flex>
+    <md-toolbar class="demo-toolbar md-primary">
+        <div class="md-toolbar-tools">
+            <h3 class="ng-binding">Travel</h3>
+        </div>
+    </md-toolbar>
+    <md-content class="md-padding">
+        <div layout="row" layout-wrap >
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Travel Type</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.travel_type}}
+                </div>
+            </div>
+
+        <div flex="50" layout="row" >
+            <div flex="30" class="detail-block" style="text-align:right">
+                <strong>Travel Sub Type</strong>
+            </div>
+            <div flex="70" class="detail-block">
+                {{detail.data.travel.travel_sub_type}}
+            </div>
+        </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Travel Estimate Cost</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.estimate_cost}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Travel Origination</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.origination}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Travel Destination</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.destination}}
+                </div>
+            </div>
+        </div>
+    </md-content>
+</section>

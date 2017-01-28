@@ -1,0 +1,108 @@
+.detail-block{
+	padding: 2px 4px ;
+}
+.text-wrap{
+	white-space: pre-line;
+}
+.block-field md-input-container{
+    margin: 0;
+}
+
+.block-field md-input-container .md-errors-spacer {
+    min-height: 14px;
+}
+.block{
+	display: block;
+}
+
+.md-button{
+	line-height: 46px;
+}
+
+.content{
+	margin: 16px;	
+}
+
+md-sidenav, 
+md-sidenav.md-locked-open, 
+md-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 100px !important;
+    width: 85vw !important;
+    max-width: 200px !important;
+} 
+
+.mb20{
+	margin-bottom: 20px;
+}
+table.md-table{
+	th.md-column,
+	td.md-cell{
+		font-size: 14px;
+	}
+} 
+
+.table {
+	td.md-cell, 
+	th.md-column{
+	    padding: 10px!important;
+    	height: 40px;
+	}
+	td{
+		md-input-container{
+			margin: 0;
+		}
+	}
+}
+.md-mini.md-button{
+    height: 36px;
+    line-height: 36px;
+}
+
+.sortable{
+	.chip{
+        cursor: pointer;
+	    border-radius: 16px;
+	    display: block;
+	    height: 32px;
+	    line-height: 32px;
+	    margin: 8px 8px 0 0;
+	    padding: 0 12px;
+	    float: left;
+	    box-sizing: border-box;
+	    max-width: 100%;
+	    position: relative;
+	    background: rgb(224,224,224);
+    	color: rgb(66,66,66);
+	}
+
+	.chip.ui-sortable-placeholder{
+		border: #000 dotted 1px;
+		background: initial;
+		visibility: initial !important;
+	}
+	.chip.detail:hover{
+		cursor: default;
+		background: rgb(224,224,224);
+    	color: rgb(66,66,66);
+	}
+	.chip:hover{
+		background: rgb(63,81,181);
+		color:#fff;
+	}
+	.chip:hover .material-icons{
+		color:#fff;
+	}
+}
+.md-button{
+	i.material-icons{
+		position: relative;
+		top: 7px;	
+	}	
+}
+.md-button.md-icon-button{
+	i.material-icons{
+		position: relative;
+		top: 0px;	
+	}	
+}
+

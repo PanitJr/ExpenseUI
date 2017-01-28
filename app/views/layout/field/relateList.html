@@ -1,0 +1,36 @@
+<md-dialog aria-label="Finishing"  ng-cloak>
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>{{objectName}}</span>
+    <span flex></span>
+    <md-button class="md-icon-button" ng-click="cancel()">
+      <i class="material-icons">clear</i>
+    </md-button>  
+  </div>
+</md-toolbar>
+
+<!-- exact table from live demo -->
+<md-table-container>
+  <table md-table md-progress="promise">
+    <thead md-head md-order="query.order" md-on-reorder="onReorder">
+      <tr md-row>
+        <th md-column ng-repeat="(label , fieldname) in heads" md-order-by="{{fieldname}}">{{label}}</th>
+        <th md-column width="50"></th>
+      </tr>
+    </thead>
+     <tbody md-body>
+      <tr md-row md-auto-select ng-repeat="listdata in listdatas">
+        <td md-cell ng-repeat="fieldname in heads" ng-click="getDataRecord(listdata)">{{listdata[fieldname]}}</td>
+        <td md-cell >
+          <md-button target="_blank" href="#/{{objectName}}/detail/{{listdata.id}}"
+                 class="md-icon-button launch" >
+            <i class="material-icons">view_list</i>
+          </md-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-options="limitoption" md-total="{{total}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+</md-dialog>

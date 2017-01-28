@@ -1,0 +1,28 @@
+<md-content class="md-padding" >
+    <div layout="column" layout-gt-xs="row" >
+        <div flex style="border: 1px dashed #888f88;padding: 10px;margin-bottom: 10px;">
+            <h4 align="center">Sick Leave</h4>
+            <span align="center">30 day (240 hour)</span>
+            <md-button disabled>Used: {{leavelist.individualleave.sickLeave}}</md-button>
+            <span align="center">Available: {{240-leavelist.individualleave.sickLeave}}</span>
+            <md-card-content>
+            </md-card-content>
+        </div>
+        <div flex style="border: 1px dashed #888f88;padding: 10px; margin-left: 10px;margin-bottom: 10px;">
+            <h4 align="center">Business Leave</h4>
+            <span align="center">4 day (32 hour)</span>
+            <md-button disabled>Used: {{leavelist.individualleave.busiLeave}}</md-button>
+            <span align="center">Available: {{32-leavelist.individualleave.busiLeave}}</span>
+            <md-card-content>
+            </md-card-content>
+        </div>
+        <div flex style="border: 1px dashed #888f88;padding: 10px;margin-left: 10px;margin-bottom: 10px;">
+            <h4 align="center">Vacation Leave</h4>
+            <span align="center">6 day (48 hour)</span>
+            <md-button disabled>Used: {{leavelist.individualleave.vacaLeave}}</md-button>
+            <span align="center">Available: {{48-leavelist.individualleave.vacaLeave}} </span>
+            <md-card-content>
+            </md-card-content>
+        </div>
+    </div>
+</md-content>

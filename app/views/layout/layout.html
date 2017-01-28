@@ -1,0 +1,54 @@
+<!--<md-sidenav -->
+<!--ng-controller="LayoutController as layout"-->
+<!--class="site-sidenav md-sidenav-left md-whiteframe-z2"-->
+<!--md-component-id="left"-->
+<!--ng-click="layout.toggleList()" -->
+<!--aria-label="Show Object List"-->
+<!--md-is-locked-open="$mdMedia('gt-sm')"-->
+<!--ng-include="'views/layout/sidenav-menu.html'">-->
+
+<!--</md-sidenav> -->
+
+
+<!--<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-controller="LayoutController as layout">-->
+<!--<md-toolbar layout="row" class="md-whiteframe-z1">-->
+<!--<md-button id="main" class="menu" hide-gt-sm ng-click="layout.toggleList()" aria-label="Show Object List">-->
+<!--<md-icon md-svg-icon="menu" ></md-icon>-->
+<!--</md-button>-->
+
+<!--<h3>Customer Connect</h3>-->
+<!--<md-button class="menu" ng-click="Auth.logout()" aria-label="Logout">-->
+<!--Logout-->
+<!--</md-button>-->
+<!--</md-toolbar>-->
+<!---->
+<!--<md-content flex id="content" ng-hide="error.status" ng-view></md-content>-->
+<!--<div class="content" ng-include="errorTemplate" ng-show="error.status" ></div>-->
+<!--</div>-->
+
+<md-sidenav
+        ng-controller="LayoutController as layout"
+        class="site-sidenav md-sidenav-left md-whiteframe-z2"
+        md-component-id="left"
+        ng-click="layout.toggleList()"
+        aria-label="Show Object List"
+        md-is-locked-open="$mdMedia('gt-sm')"
+        ng-include="'views/layout/sidenav-menu.html'">
+
+</md-sidenav>
+
+<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ng-controller="LayoutController as layout">
+  <md-toolbar layout="row" style="background-color: #6B6464;">
+    <md-button id="main" class="menu" hide-gt-sm ng-click="layout.toggleList()" aria-label="Show Object List">
+      <md-icon md-svg-icon="menu" ></md-icon>
+    </md-button>
+
+    <h3>Enterprise Workforce Expense & Absence Management</h3>
+    <md-button class="menu" ng-click="Auth.showConfirm($event)" aria-label="Logout">
+      <i class="material-icons">settings_power</i>
+    </md-button>
+  </md-toolbar>
+
+  <md-content flex id="content" ng-hide="error.status" ng-view></md-content>
+  <div class="content" ng-include="errorTemplate" ng-show="error.status" ></div>
+</div>

@@ -1,0 +1,31 @@
+<div class="md-toolbar-tools">
+            <span class="mdl-chip" >
+                <span class="mdl-chip mdl-chip--deletable ">
+                    <span class="mdl-chip__text">Leave History</span>
+                </span>
+            </span>
+<md-button class="md-icon-button" aria-label="Filter" ng-click="leavelist.filterBtn = !leavelist.filterBtn"></md-button>
+</div>
+<md-table-container>
+    <table md-table md-row-select ng-model="leavelist.selected" md-progress="leavelist.promise">
+        <thead md-head md-order="leavelist.query.order" md-on-reorder="leavelist.onReorder">
+        <tr md-row>
+            <th md-column ng-repeat="(label,fieldname) in leavelist.heads" md-order-by="{{fieldname}}">{{label}}</th>
+            <th md-column width="50"></th>
+        </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row md-select="listdata" md-select-id="{{listdata.id}}" md-auto-select ng-repeat="listdata in leavelist.listdatas">
+            <td md-cell ng-repeat="fieldname in leavelist.heads" ng-click="leavelist.getDetail(listdata.id)">{{listdata[fieldname]}}</td>
+                <td md-cell >
+                    <md-button href="#/Leave/leavedetail/{{listdata.id}}"
+                               class="md-icon-button launch" >
+                        <i class="material-icons">view_list</i>
+                    </md-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>
+<md-table-pagination md-limit="leavelist.query.limit" md-page="leavelist.query.page" md-options="leavelist.limitoption"
+                     md-total="{{leavelist.total}}" md-on-paginate="leavelist.onPaginate" md-page-select></md-table-pagination>

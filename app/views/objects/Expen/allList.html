@@ -1,0 +1,63 @@
+<md-table-container>
+    <!--Search-->
+    <md-toolbar class="md-table-toolbar md-default">
+        <span class="mdl-chip" >
+            <md-button class="md-icon-button" aria-label="Filter" ng-click="all.filterBtn = !all.filterBtn">
+                <i ng-show="!all.filterBtn" class="material-icons">search</i>
+                <i ng-hide="!all.filterBtn" class="material-icons">arrow_drop_up</i>
+            </md-button>
+        </span>
+        <form ng-hide="!all.filterBtn" ng-submit="all.loadList(all.objectName,all.query)">
+            <md-content layout="col"  layout-align="left left">
+                <md-input-container flex="60" md-no-float class="md-block" >
+                    <md-icon class="material-icons">search</md-icon>
+                    <input   ng-model="all.query.search" type="text" placeholder="Search">
+                </md-input-container>
+                <md-button type="button"
+                           class="md-icon-button md-button"
+                           ng-hide="!all.query.search.length"
+                           ng-click="all.cancleSearch()">
+                    <i class="material-icons">clear</i></md-button>
+                <md-button type="submit" class="md-raised">Search</md-button>
+
+            </md-content>
+        </form>
+    </md-toolbar>
+<!--End search-->
+
+    <div layout-gt-sm="row">
+    <span class="mdl-chip" >
+        <span class="mdl-chip mdl-chip--deletable ">
+            <span class="mdl-chip__text">All Expense</span>
+            <span class="mdl-badge" data-badge="{{all.total}}"></span>
+        </span>
+    </span>
+    </div>
+    <table md-table md-row-select ng-model="all.selected" md-progress="all.promise">
+        <thead md-head md-order="all.query.order" md-on-reorder="all.onReorder">
+        <tr md-row>
+            <th md-column >Expense</th>
+            <!--<th md-column >Owner</th>-->
+            <!--<th md-column >Total Cost</th>-->
+            <th md-column >Status</th>
+            <th md-column width="50"></th>
+        </tr>
+        </thead>
+        <tbody md-body >
+        <tr md-row md-select="listdata" md-select-id="{{listdata.id}}"  md-auto-select ng-repeat="listdata in all.listdatas">
+            <!--<td md-cell ng-repeat="fieldname in list.heads" ng-click="list.getDetail(listdata.id)">{{listdata[fieldname]}}</td>-->
+            <td md-cell ng-click="all.getDetail(listdata.id)">{{listdata.expensename}}</td>
+            <!--<td md-cell ng-click="all.getDetail(listdata.id)">{{listdata.user_id}}</td>-->
+            <!--<td md-cell ng-click="all.getDetail(listdata.id)">{{listdata.total_price}}</td>-->
+            <td md-cell ng-click="all.getDetail(listdata.id)">{{listdata.status.expensestatusname}}</td>
+            <td md-cell >
+                <md-button href="#/{{all.objectName}}/detail/{{listdata.id}}"
+                           class="md-icon-button launch" >
+                    <i class="material-icons">view_list</i>
+                </md-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</md-table-container>
+<md-table-pagination md-limit="all.query.limit" md-page="all.query.page" md-options="all.limitoption" md-total="{{all.total}}" md-on-paginate="all.onPaginate" md-page-select></md-table-pagination>

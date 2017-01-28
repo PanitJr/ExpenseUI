@@ -1,0 +1,112 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span ng-hide="!edit.record.length">{{edit.label}}</span>
+    <span ng-show="!edit.record.length">New {{edit.objectName}}</span>
+    <span flex="" class="flex"></span>
+  </div>
+</md-toolbar>
+
+<section class="md-whiteframe-z1" ng-repeat="block in edit.blocks" flex>
+  <md-toolbar class="demo-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3 class="ng-binding">Contact Information</h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+    <div layout="row" layout-wrap >
+      <div flex="15"class="block-field" flex-xs="100" layout="row">
+          <div flex="100" flex-xs="100" >
+            <md-input-container class="md-block" flex>
+              <label>Salutation</label>
+              <md-select ng-model="edit.data['salutation']" ng-required="true" >
+                <md-option value="1">
+                  Mr.
+                </md-option>
+                <md-option value="2">
+                  Ms.
+                </md-option>
+                <md-option value="3">
+                  Mrs.
+                </md-option>
+                <md-option value="4">
+                  นาย
+                </md-option>
+                <md-option value="5">
+                  นาง
+                </md-option>
+                <md-option value="6">
+                  นางสาว
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+      </div>
+      <div flex="30"class="block-field" flex-xs="100" layout="row">
+        <div flex="100" flex-xs="100" >
+          <md-input-container class="md-block" flex>
+            <label>First Name</label>
+            <input ng-model="edit.data['firstname']" type="text" ng-required="true">
+          </md-input-container>
+        </div>
+      </div>
+      <div flex="25"class="block-field" flex-xs="100" layout="row">
+        <div flex="100" flex-xs="100" >
+          <md-input-container class="md-block" flex>
+            <label>Midle Name</label>
+            <input ng-model="edit.data['lastname']" type="text">
+          </md-input-container>
+        </div>
+      </div>
+      <div flex="30"class="block-field" flex-xs="100" layout="row">
+        <div flex="100" flex-xs="100" >
+          <md-input-container class="md-block" flex>
+            <label>Last Name</label>
+            <input ng-model="edit.data['lastname']" type="text" ng-required="true">
+          </md-input-container>
+        </div>
+      </div>
+      <div flex="3"class="block-field" flex-xs="100" layout="row" >
+        <div flex="50" flex-xs="100" >
+          <div><strong>+</strong></div>
+        </div>
+      </div>
+      <div flex="5"class="block-field" flex-xs="100" layout="row" >
+        <div flex="100" flex-xs="100" >
+          <md-input-container class="md-block" flex>
+            <label></label>
+            <input ng-model="edit.data['phonecode']" type="text" pattern="(?=.*[0-9]).{2,3}" placeholder="66" ng-required="true">
+          </md-input-container>
+        </div>
+      </div>
+      <div flex="40"class="block-field" flex-xs="100" layout="row">
+        <div flex="100" flex-xs="100" >
+          <md-input-container class="md-block" flex>
+            <label>Phone Number</label>
+            <input ng-model="edit.data['phonenumber']" type="tel" ng-required="true">
+          </md-input-container>
+        </div>
+      </div>
+      <div flex="50"class="block-field" flex-xs="100" layout="row">
+        <div flex="100" flex-xs="100" >
+          <md-input-container class="md-block" flex>
+
+          </md-input-container>
+        </div>
+      </div>
+      <div flex="100"class="block-field" flex-xs="100" layout="row">
+        <div flex="100" flex-xs="100" >
+          <md-input-container class="md-block" flex>
+            <label>Address</label>
+            <textarea ng-model="edit.data['address']" rows="3" ng-required="true"></textarea>
+          </md-input-container>
+        </div>
+      </div>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+          <md-button class="md-raised md-primary" style="color:#fff;" ng-click="edit.save()" >SAVE</md-button>
+          <a class="md-primary md-button md-ink-ripple" href="javascript:history.back()" >Cancel</a>
+        </section>
+    </div>
+
+  </md-content>
+</section>
+

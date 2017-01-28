@@ -1,0 +1,37 @@
+<md-dialog style="min-width: 400px;"  md-theme="default" aria-label="Product Option" ng-class="dialog.css" class="md-default-theme" role="dialog" tabindex="-1" >
+<md-dialog-content class="md-dialog-content" role="document" tabindex="-1" id="dialogContent_175">
+<h2 class="md-title ng-binding" > {{import.report.report_name}}</h2>
+<table style="width: 100%;" md-table >
+	<tbody md-body>
+		<tr md-row ng-repeat="(label , value) in import.report.report">
+			<td md-cell >{{label}}</td>
+			<td md-cell >{{value}}</td>
+		</tr>
+	</tbody>
+</table>
+<div ng-hide="!import.report.report_fail.body.length" >
+	<h4>Import Fail </h4>
+	<div style=" width: 100%; overflow-y: auto; ">
+		<table  md-table >
+			<thead md-head >
+				<tr md-row>
+					<th md-column ng-repeat="label in import.report.report_fail.header">{{label}}</th>
+				</tr>
+			</thead>
+			<tbody md-body>
+				
+				<tr md-row ng-repeat="(id , row) in import.report.report_fail.body">
+					<td md-cell ng-repeat="label in import.report.report_fail.header">{{row[label]}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+</md-dialog-content>
+<md-dialog-actions>
+<md-button class="md-raised" ng-click="import.done()" style="margin-right:20px;">
+Done
+</md-button>
+</md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,108 @@
+
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-repeat="field in block.fields" ng-show="field.input_type!=''
+&& object.data.travel_sub_type !='BTS' && object.data.travel_sub_type !='MRT' && object.data.travel_sub_type !='BRT' && object.data.travel_sub_type !='Airport Rail Link'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex>
+            <label>{{field.fieldlabel}}</label>
+            <input ng-model="object.data[field.fieldname]" type="{{field.input_type}}">
+        </md-input-container>
+    </div>
+</div>
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='BTS'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>BTS Origination</label>
+            <md-select ng-model="object.data.origination" ng-required="true" ng-change="dashboard.getitemcost(object.data)" >
+                <md-option ng-repeat="type in dashboard.listdatasBTSStation" value="{{type.btsstation}}">
+                    {{type.btsstation}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='BTS'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>BTS Destination</label>
+            <md-select ng-model="object.data.destination" ng-required="true" ng-change="dashboard.getitemcost(object.data)">
+                <md-option ng-repeat="type in dashboard.listdatasBTSStation" value="{{type.btsstation}}">
+                    {{type.btsstation}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>
+
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='BRT'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>BRT Origination</label>
+            <md-select ng-model="object.data.origination" ng-required="true" ng-change="dashboard.getitemcost(object.data)">
+                <md-option ng-repeat="type in dashboard.listdatasBRTStation" value="{{type.brtstationname}}">
+                    {{type.brtstationname}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='BRT'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>BRT Destination</label>
+            <md-select ng-model="object.data.destination" ng-required="true" ng-change="dashboard.getitemcost(object.data)">
+                <md-option ng-repeat="type in dashboard.listdatasBRTStation" value="{{type.brtstationname}}">
+                    {{type.brtstationname}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>
+
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='MRT'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>MRT Origination</label>
+            <md-select ng-model="object.data.origination" ng-required="true" ng-change="dashboard.getitemcost(object.data)">
+                <md-option ng-repeat="type in dashboard.listdatasMRTStation" value="{{type.mrtstation}}">
+                    {{type.mrtstation}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='MRT'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>MRT Destination</label>
+            <md-select ng-model="object.data.destination" ng-required="true" ng-change="dashboard.getitemcost(object.data)">
+                <md-option ng-repeat="type in dashboard.listdatasMRTStation" value="{{type.mrtstation}}">
+                    {{type.mrtstation}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='Airport Rail Link'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Airport Rail Link Origination</label>
+            <md-select ng-model="object.data.origination" ng-required="true" ng-change="dashboard.getitemcost(object.data)">
+                <md-option ng-repeat="type in dashboard.listdatasAirPortRailLinkStation" value="{{type.airportraillinkstation}}">
+                    {{type.airportraillinkstation}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>
+<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.data.travel_sub_type =='Airport Rail Link'">
+    <div flex="100" flex-xs="100" >
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Airport Rail Link Destination</label>
+            <md-select ng-model="object.data.destination" ng-required="true" ng-change="dashboard.getitemcost(object.data)">
+                <md-option ng-repeat="type in dashboard.listdatasAirPortRailLinkStation" value="{{type.airportraillinkstation}}">
+                    {{type.airportraillinkstation}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</div>

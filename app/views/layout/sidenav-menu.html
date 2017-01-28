@@ -1,0 +1,36 @@
+<md-toolbar style="background-color: #6B6464;">
+    <span flex></span>
+    <div layout="column" class="md-toolbar-tools-bottom inset">
+        <!--<md-icon md-svg-src="assets/svg/avatar-1.svg" class="avatar circle"></md-icon>-->
+        <span></span>
+        <div>{{Auth.data.firstname}}</div>
+        <div>{{Auth.data.email}}</div>
+    </div>
+</md-toolbar>
+<md-divider></md-divider>
+<md-list ng-controller="SidenavController as sidebar">
+    <md-list-item ng-repeat="it in sidebar.object" >
+            <md-button href="#/{{it.name}}/list" ng-click="sidebar.selectObject(it)" ng-class="{'selected' : it === sidebar.selected }">
+                <md-icon  class="material-icons">{{it.icon}}</md-icon>
+                {{it.label}}
+            </md-button>
+    </md-list-item>
+</md-list>
+<md-divider></md-divider>
+<md-list>
+    <md-list-item>
+        <md-button href="#/Users/detail/{{Auth.data.id}}" >
+            <md-icon  class="material-icons">people</md-icon>
+            Account
+        </md-button>
+    </md-list-item>
+</md-list>
+<md-list ng-controller="SidenavController as sidebar">
+    <md-list-item ng-repeat="it in sidebar.managelist">
+        <md-button href="#/{{it.name}}/list" ng-click="sidebar.selectObject(it)" ng-class="{'selected' : it === sidebar.selected }">
+            <md-icon  class="material-icons">{{it.icon}}</md-icon>
+            {{it.label}}
+        </md-button>
+    </md-list-item>
+</md-list>
+<md-divider></md-divider>
