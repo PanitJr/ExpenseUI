@@ -36,15 +36,15 @@
         self.promiseOpportunity =[];
         self.loadList = loadList;
         //construct
-        loadList('TravelType',self.queryselectOption);
-        loadList('TravelSubType',self.queryselectOption);
-        loadList('ServiceType',self.queryselectOption);
-        loadList('BRTStation',self.queryselectOption);
-        loadList('BTSStation',self.queryselectOption);
-        loadList('MRTStation',self.queryselectOption);
-        loadList('AirPortRailLinkStation',self.queryselectOption);
-        loadList('Opportunity',self.queryselectOption);
-        loadList('Item',self.queryItem);
+        // loadList('TravelType',self.queryselectOption);
+        // loadList('TravelSubType',self.queryselectOption);
+        // loadList('ServiceType',self.queryselectOption);
+        // loadList('BRTStation',self.queryselectOption);
+        // loadList('BTSStation',self.queryselectOption);
+        // loadList('MRTStation',self.queryselectOption);
+        // loadList('AirPortRailLinkStation',self.queryselectOption);
+        // loadList('Opportunity',self.queryselectOption);
+        // loadList('Item',self.queryItem);
         //list function
         self.showHideTravelList = function (){self.showItemList = !self.showItemList;}
         function loadList(object, query)

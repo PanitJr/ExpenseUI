@@ -4,3 +4,17 @@ package.json~
 *.log
 *.cache
 bower_components
+.DS_Store
+.idea/workspace.xml
+app/.DS_Store
+app/assets/.DS_Store
+app/views/.DS_Store
+app/views/layout/.DS_Store
+app/views/objects/.DS_Store
+sass/.DS_Store
+script/.DS_Store
+script/Directive/.DS_Store
+script/Object/.DS_Store
+test/.DS_Store
+test/e2e/.DS_Store
+test/unit/.DS_Store
