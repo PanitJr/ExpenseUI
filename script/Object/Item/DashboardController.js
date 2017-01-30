@@ -90,15 +90,13 @@
             }
         }
         self.addObject = function (objectType) {
-            editService.getEdit(objectType,self.record,{},function(response){
-                response.objectname = objectType;
+            editService.getEdit('Item',self.record,{},function(response){
+                response.objectname = 'Item';
                 if(response.data.item == null){response.data.item = {};}
-                response.data.item.itemname =  self.defaultItemName;
-                response.data.item.opportunity = self.defaultOpportunity;
-                response.data.item_date = new Date();
-                response.data.item_date = self.defaultDate;
-                response.data.item.item_date = '';
-                response.data.item.item_date = self.defaultDate.getFullYear()+"-"+(self.defaultDate.getMonth()+1)+"-"+self.defaultDate.getDate();
+                response.data.itemname =  self.defaultItemName;
+                response.data.opportunity = self.defaultOpportunity;
+                response.data.date = self.defaultDate;
+                response.data.category = objectType;
                 // console.log('item date is :'+response.data.item.item_date);
                 self.objectList.push(response);
             },helperService.error_page);

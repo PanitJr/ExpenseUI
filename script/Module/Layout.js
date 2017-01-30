@@ -31,7 +31,7 @@
   
   function layout_basic_route($routeProvider) {
     $routeProvider.when('/', {
-      templateUrl: 'views/layout/dashboard.html',
+      templateUrl: 'views/objects/Item/dashboard.html',
         controller: 'DashboardController as dashboard'
     });
     //   $routeProvider.when('/', {
