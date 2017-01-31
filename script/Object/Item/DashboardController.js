@@ -2,11 +2,11 @@
     angular
         .module('layout')
         .controller('DashboardController', [
-            'helperService','editService','listService','$routeParams','$location','$rootScope','$http','DashboardService',
+            'helperService','editService','listService','$routeParams','$location','$http','DashboardService','$cookies',
             DashboardController
         ]);
 
-    function DashboardController(helperService,editService,listService,$routeParams,$location,$rootScope,$http,DashboardService) {
+    function DashboardController(helperService,editService,listService,$location,$rootScope,$http,DashboardService,$cookies) {
         var self = this;
         self.showItemlList = true;
         self.defaultVal = false;
@@ -20,42 +20,15 @@
         self.selected = [];
         self.record = '';
         self.headsItem ={};self.totalItem = 0;self.listdatasItem =[];
-        self.headsTravelType ={};self.totalTravelType = 0;self.listdatasTravelType =[];
-        self.headsTravelSubType ={};self.totalTravelSubType = 0;self.listdatasTravelSubType =[];
-        self.headsServiceType ={};self.totalServiceType = 0;self.listdatasServiceType =[];
-        self.headsBRTStation ={};self.totalBRTStation = 0;self.listdatasBRTStation =[];
-        self.headsBTSStation ={};self.totalBTSStation = 0;self.listdatasBTSStation =[];
-        self.headsMRTStation ={};self.totalMRTStation = 0;self.listdatasMRTStation =[];
-        self.headsOpportunity ={};self.totalOpportunity = 0;self.listdatasOpportunity =[];
-        self.headsAirPortRailLinkStation ={};self.totalAirPortRailLinkStation = 0;self.listdatasAirPortRailLinkStation =[];
+
         self.queryItem ={search: "", order:null, limit : 25, page : 1};
         self.queryselectOption ={search: "", order:null, limit : 100, page : 1};
         //self.selected = [ ];
-        self.promiseItem = {}; self.promiseTravelType = {}; self.promiseTravelSubType = []; self.promiseServiceType = [];
-        self.promiseBRTStation = {};self.promiseBTSStation = {};self.promiseMRTStation = {};self.promiseAirPortRailLinkStation = {};
-        self.promiseOpportunity =[];
+        self.promiseItem = {};
         self.loadList = loadList;
         //construct
-        // loadList('TravelType',self.queryselectOption);
-        // loadList('TravelSubType',self.queryselectOption);
-        // loadList('ServiceType',self.queryselectOption);
-        // loadList('BRTStation',self.queryselectOption);
-        // loadList('BTSStation',self.queryselectOption);
-        // loadList('MRTStation',self.queryselectOption);
-        // loadList('AirPortRailLinkStation',self.queryselectOption);
-        // loadList('Opportunity',self.queryselectOption);
-        // loadList('Item',self.queryItem);
+        loadList('Item',self.queryItem);
         //list function
-        self.showHideTravelList = function (){self.showItemList = !self.showItemList;}
-        function loadList(object, query)
-        {
-            self['promise'+object] = listService.getList(object,query,function (response) {
-                var listInfo = response.listInfo;
-                self['heads'+object] = response.header;
-                self['total'+object] = listInfo.total;
-                self['listdatas'+object] = listInfo.data;
-            });
-        }
         self.cancleSearch = function () {
             self.queryItem.search = "";
             loadList('Item',self.queryItem);
@@ -81,11 +54,21 @@
         }
         //add function
         self.getitemcost = function (object) {
-            if(object.origination != undefined && object.destination != undefined) {
+            if(object.travel.origination != undefined && object.travel.destination != undefined) {
                 $http
-                    .get($rootScope.apiurl + 'getpublictransportcost/' + object.travel_sub_type + '/' + object.origination + '/' + object.destination)
+                    .get($rootScope.apiurl + 'TravelUtil/'+ object.travel.travelsubtype +'/' + object.travel.origination +
+                        '/' + object.travel.destination+'?token='+$cookies.get('auth_token'))
                     .then(function (res) {
-                        object.item.cost = parseFloat(res.data.data[0]['cost']);
+                        object.item.cost = parseFloat(res.data[0]['cost']);
+                    });
+            }
+        }
+        self.onChangeSubtravel = function (object) {
+            if(object.travel.origination != undefined && object.travel.destination != undefined) {
+                $http
+                    .get($rootScope.apiurl + 'TravelUtil/'+ object.travel.travelsubtype +'/?token='+$cookies.get('auth_token'))
+                    .then(function (res) {
+                        self.subTravelType = res.data;
                     });
             }
         }

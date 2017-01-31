@@ -338,8 +338,8 @@
         <tr md-row md-select="listdata" md-select-id="{{listdata.id}}" md-auto-select ng-repeat="listdata in dashboard.listdatasItem" ng-show="listdata['status'] != 'submited'">
             <td md-cell ng-repeat="fieldname in dashboard.headsItem" ng-click="dashboard.getDetail(listdata.id)">
                 <div ng-switch="fieldname">
-                    <!--<div ng-switch-when="attachment"><img src="{{listdata[fieldname]}}" alt="" style="width:30px;height:30px;"></div>-->
-                    <!--<div ng-switch-default>{{listdata[fieldname]}}</div>-->
+                    <div ng-switch-when="attachment"><img src="{{listdata[fieldname]}}" alt="" style="width:30px;height:30px;"></div>
+                    <div ng-switch-default>{{listdata[fieldname]}}</div>
                 </div>
             </td>
             <td md-cell >
