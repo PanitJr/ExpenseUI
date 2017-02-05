@@ -12,8 +12,8 @@
         var showErrorMassage = false;
         var error = function(e) {
             helperService.alert_error({
-                error_code:'Alert Dialog',
-                error_massage : 'Loss connection to api server'
+                error_code:e.error_code,
+                error_massage : e.error_massage
             });
         }
 

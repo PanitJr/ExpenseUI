@@ -35,6 +35,7 @@
           {
             self.data = result.data;
             $cookies.put('auth_token',result.data.token);
+
             setLayout();
           }
           else{
@@ -56,7 +57,8 @@
                   if (result.success) {
                       gapi.auth2.getAuthInstance().signOut();
                     //self.data = result.data;
-                    $cookies.put('auth_token', result.data.token);
+                        $cookies.put('auth_token', result.data.token);
+                        $rootScope.permissions= result.data.permissions;
                     setLayout();
                   }
                   else {

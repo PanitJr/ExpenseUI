@@ -3,14 +3,14 @@
   angular
        .module('layout')
        .controller('UserEditController', [
-          '$q','$scope','$routeParams','UsereditService','$timeout','$location','helperService',
+          '$routeParams','editService','$location','helperService',
           UserEditController
        ]);
 
 
-    function UserEditController($log,$scope,$routeParams,editService,$timeout,$location,helperService) {
+    function UserEditController($routeParams,editService,$location,helperService) {
         var self = this;
-        self.objectName = $routeParams.objectname;
+        self.objectName = 'Users';
         self.record = $routeParams.record;
         self.save = save;
         self.data ={ };

@@ -3,12 +3,12 @@
   angular
        .module('layout')
        .controller('ItemDetailController', [
-          '$q','$scope','$routeParams','detailService','$timeout','$location','$mdDialog','$rootScope','helperService',
+          '$routeParams','detailService','$location','$mdDialog','helperService',
           ItemDetailController
        ]);
 
 
-  function ItemDetailController($log,$scope,$routeParams,detailService,$timeout,$location,$mdDialog,$rootScope,helperService) {
+  function ItemDetailController($routeParams,detailService,$location,$mdDialog,helperService) {
     var self = this;
     self.objectName = 'Item';
     self.record = $routeParams.record; 

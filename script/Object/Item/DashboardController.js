@@ -2,73 +2,88 @@
     angular
         .module('layout')
         .controller('DashboardController', [
-            'helperService','editService','listService','$routeParams','$location','$http','DashboardService','$cookies',
+            'helperService','editService','listService','$location','$rootScope','$http','$cookies',
             DashboardController
         ]);
 
-    function DashboardController(helperService,editService,listService,$location,$rootScope,$http,DashboardService,$cookies) {
+    function DashboardController(helperService,editService,listService,$location,$rootScope,$http,$cookies) {
         var self = this;
-        self.showItemlList = true;
         self.defaultVal = false;
-        self.defaultItemName = '';
-        self.defaultOpportunity = '';
+        self.defaultOpportunity = 1;
         self.defaultDate = new Date();
         self.limitoption =[25,50,100];
-        self.objectname = '';
+        self.objectName = 'Item';
         self.tempcost = 0.0;
         self.objectList = [];
         self.selected = [];
         self.record = '';
-        self.headsItem ={};self.totalItem = 0;self.listdatasItem =[];
-
-        self.queryItem ={search: "", order:null, limit : 25, page : 1};
-        self.queryselectOption ={search: "", order:null, limit : 100, page : 1};
-        //self.selected = [ ];
-        self.promiseItem = {};
+        self.heads ={ };
+        self.limitoption =[10,25,50,100];
+        self.total = 0;
+        self.query ={
+            search: "",
+            order:null,
+            limit : 10,
+            page : 1
+        };
+        self.selected = [ ];
+        self.onPaginate = onPaginate;
+        self.onReorder = onReorder;
+        self.getDetail = getDetail;
         self.loadList = loadList;
-        //construct
-        loadList('Item',self.queryItem);
-        //list function
-        self.cancleSearch = function () {
-            self.queryItem.search = "";
-            loadList('Item',self.queryItem);
+        self.cancleSearch = cancleSearch;
+
+
+        //load List
+        loadList(self.objectName,self.query);
+
+        /**
+         *  Internal Function
+         **/
+
+        function cancleSearch() {
+            self.query.search = "";
+            loadList(self.objectName, self.query);
         }
-        self.onReorder = function (order)
+
+        function loadList(objectName,query)
         {
-            self.queryItem = angular.extend({},self.queryItem,{order:order});
-            loadList('Item',self.queryItem);
+            self.promise = listService.getList(objectName,query,success);
         }
-        self.onPaginate = function (page, limit)
+
+        function success(response)
         {
-            self.queryItem = angular.extend({},self.queryItem,{page:page,limit:limit});
-            loadList('Item',self.queryItem);
+            var listInfo = response.listInfo;
+            self.heads  = response.header;
+            self.total = listInfo.total;
+            self.listdatas = listInfo.data;
         }
-        self.getDetail = function (record)
+
+        function onPaginate(page, limit)
         {
-            $location.path('/Item/detail/'+record);
+            self.query = angular.extend({},self.query,{page:page,limit:limit});
+            loadList(self.objectName,self.query);
         }
-        self.submitToExpense = function () {
-            DashboardService.submit('Item',self.record,self.record,function(response){
-                loadList('Item',self.queryItem);
-            });
+
+        function onReorder(order)
+        {
+            self.query = angular.extend({},self.query,{order:order});
+            loadList(self.objectName,self.query);
+        }
+
+        function getDetail(record)
+        {
+            $location.path('/'+self.objectName+'/detail/'+record);
         }
         //add function
         self.getitemcost = function (object) {
             if(object.travel.origination != undefined && object.travel.destination != undefined) {
                 $http
-                    .get($rootScope.apiurl + 'TravelUtil/'+ object.travel.travelsubtype +'/' + object.travel.origination +
+                    .get($rootScope.apiurl + 'TravelUtil/'+ object.travel.travelsubtype +'/cost/' + object.travel.origination +
                         '/' + object.travel.destination+'?token='+$cookies.get('auth_token'))
                     .then(function (res) {
-                        object.item.cost = parseFloat(res.data[0]['cost']);
-                    });
-            }
-        }
-        self.onChangeSubtravel = function (object) {
-            if(object.travel.origination != undefined && object.travel.destination != undefined) {
-                $http
-                    .get($rootScope.apiurl + 'TravelUtil/'+ object.travel.travelsubtype +'/?token='+$cookies.get('auth_token'))
-                    .then(function (res) {
-                        self.subTravelType = res.data;
+                        console.log(res.data.data[0]['cost']);
+                        object.cost = parseFloat(res.data.data[0]['cost']);
                     });
             }
         }
@@ -76,10 +91,11 @@
             editService.getEdit('Item',self.record,{},function(response){
                 response.objectname = 'Item';
                 if(response.data.item == null){response.data.item = {};}
-                response.data.itemname =  self.defaultItemName;
                 response.data.opportunity = self.defaultOpportunity;
+                response.data.date = new Date();
                 response.data.date = self.defaultDate;
                 response.data.category = objectType;
+                if(objectType == 1){response.data.travelField = true;}
                 // console.log('item date is :'+response.data.item.item_date);
                 self.objectList.push(response);
             },helperService.error_page);
@@ -87,44 +103,62 @@
         self.removeObject = function (index) {
             self.objectList.splice(index,1);
         }
-        self.clone =function () {
+        self.clone = function () {
             for (var i = 0, len = self.selected.length; i < len; i++) {
-                console.log(self.selected[i][self.selected[i].category.toLowerCase()].id);
+                //console.log(self.selected[i].id);
                 //console.log(self.selected[i]);
-                editService.getEdit(self.selected[i].category,self.selected[i][self.selected[i].category.toLowerCase()].id,{},function(response){
+                editService.getEdit('Item',self.selected[i].id,{},function(response){
                     if(response.data.item == null){response.data.item = {};}
-                    response.data.item_date = new Date();
-                    response.data.item_date = self.defaultDate;
-                    response.data.item.item_date = '';
-                    response.data.item.item_date = self.defaultDate.getFullYear()+"-"+(self.defaultDate.getMonth()+1)+"-"+self.defaultDate.getDate();
+                    response.data.id = '';
+                    response.data.status = 1;
+                    response.data.attachment = '';
+                    response.data.expense_id = '';
+                    response.data.date = new Date();
+                    response.data.date = self.defaultDate;
                     self.objectList.push(response);
                 },helperService.error_page);
             }
         }
         self.save = function (object,index)
         {
-            object.data.item.id = '';
             if (object.data.item.item_date == undefined){
-                object.data.item.item_date = '';
-                object.data.item.item_date = self.defaultDate.getFullYear()+"-"+(self.defaultDate.getMonth()+1)+"-"+self.defaultDate.getDate();
+                object.data.date = '';
+                object.data.date = self.defaultDate.getFullYear()+"-"+(self.defaultDate.getMonth()+1)+"-"+self.defaultDate.getDate();
             }else {
-                object.data.item.item_date = '';
-                object.data.item.item_date = object.data.item_date.getFullYear()+"-"+(object.data.item_date.getMonth()+1)+"-"+object.data.item_date.getDate();
+                var tempdate = object.data.date;
+                object.data.date = '';
+                object.data.date = tempdate.getFullYear()+"-"+(tempdate.getMonth()+1)+"-"+tempdate.getDate();
             }
-            object.data.item.status = 'rejected';
-            console.log('df date is :'+self.defaultDate);
-            console.log('item date is :'+object.data.item.item_date);
-            object.data.item.category = object.objectname;
-            editService.saveEdit('Item',self.record,object.data.item,function(response){
+            //console.log(object.data.category);
+            //console.log(object.data.date);
+            object.data.itemname = '';
+            editService.saveEdit('Item',object.data.id,object.data,function(response){
                 // console.log(response);
-                object.data.item_id = response.id;
-                editService.saveEdit(object.objectname,self.record,object.data,function(response){
-                    self.objectList.splice(index,1);
-                });
-
+                self.objectList.splice(index,1);
             });
-            loadList('Item',self.queryItem);
+            loadList('Item',self.query);
         };
+
+        self.getStation = function (object){
+            //console.log(object.travel.travelsubtype);
+            if (object.travel.travelsubtype == 1 || object.travel.travelsubtype == 2 || object.travel.travelsubtype == 3 ||object.travel.travelsubtype == 4 ){
+                $http
+                    .get($rootScope.apiurl + 'TravelUtil/'+ object.travel.travelsubtype +'/?token='+$cookies.get('auth_token'))
+                    .then(function (res) {
+                        self.Ostations= res.data.data;
+                        self.Dstations= res.data.data;
+                    });
+                object.travelField = false;
+            }else {
+                object.travelField = true;
+            }
+        }
+        self.submitExpense = function () {
+            editService.saveEdit('Expense', undefined, undefined, function (response) {
+                // console.log(response);
+            });
+            loadList('Item', self.query);
+        }
 
     }
 
