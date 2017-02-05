@@ -1,0 +1,75 @@
+<form ng-submit="edit.save()" >
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span ng-hide="!edit.record.length">{{edit.label}}</span>
+    <span ng-show="!edit.record.length">New {{edit.objectName}}</span>
+    <span flex="" class="flex"></span>
+    <md-button class="md-raised md-primary" style="color:#fff;" type="submit">SAVE</md-button>
+    <a class="md-primary md-button md-ink-ripple" href="javascript:history.back()" >Cancel</a>
+  </div>
+</md-toolbar>
+
+<section class="md-whiteframe-z1" ng-repeat="block in edit.blocks" flex>
+  <md-toolbar class="demo-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3 class="ng-binding">{{block.blocklabel}}</h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+    <div layout="row" layout-wrap >
+      <div flex="50"class="block-field" flex-xs="100" layout="row" ng-repeat="field in block.fields">
+          <div flex="100" flex-xs="100" ng-switch on="field.type.id">
+            <div ng-switch-when="5" class="field">
+              <md-input-container class="md-block" flex >
+                <label>{{field.fieldlabel}}</label>
+                <md-select ng-model="edit.data[field.fieldname]" ng-required="{{field.required}}">
+                  <md-option ng-repeat="picklist in field[field.fieldlabel]" value="{{picklist.id}}">
+                    {{picklist.name}}
+                    {{picklist.user_name}}
+                  </md-option>
+                </md-select>
+                <div ng-messages="edit.data[field.fieldname].$error">
+                  <div ng-message="required">{{field.fieldlabel}} is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div ng-switch-when="8" class="field">
+              <md-input-container class="md-block" flex >
+                <label>{{field.fieldlabel}}</label>
+                <input ng-model="edit.data[field.fieldname]" type="{{field.type.fieldtype}}" ng-required="{{field.required}}" ng-disabled="edit.data.id != undifine">
+                <div ng-messages="edit.data[field.fieldname].$error">
+                  <div ng-message="required">{{field.fieldlabel}} is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div ng-switch-default class="field">
+              <md-input-container class="md-block" flex >
+                <label>{{field.fieldlabel}}</label>
+                <input ng-model="edit.data[field.fieldname]" type="{{field.type.fieldtype}}" ng-required="{{field.required}}">
+                <div ng-messages="edit.data[field.fieldname].$error">
+                  <div ng-message="required">{{field.fieldlabel}} is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+          </div>
+      </div>
+      <div flex="50"class="block-field" flex-xs="100" layout="row">
+          <div class="field" flex="100" flex-xs="100">
+            <md-input-container class="md-block" flex >
+              <label>Profile</label>
+              <md-select ng-model="edit.data['profiles_id']" ng-required="true">
+                <md-option ng-repeat="picklist in block.fields[6]['Profile']" value="{{picklist.id}}">
+                  {{picklist.profilename}}
+                </md-option>
+              </md-select>
+              <div ng-messages="edit.data['profiles_id'].$error">
+                <div ng-message="required">Profile is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+      </div>
+      </div>
+
+  </md-content>
+</section>
+</form>

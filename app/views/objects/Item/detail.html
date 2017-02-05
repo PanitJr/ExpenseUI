@@ -1,12 +1,14 @@
 <md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <span >{{detail.label}}</span>
-    <span flex="" class="flex"></span>
-    <md-button class="md-raised" href="#/{{detail.objectName}}/edit/{{detail.record}}" >EDIT</md-button>
-    <md-button class="md-raised" ng-click="detail.deleteRecord($event)" >DELETE Item</md-button>
-  </div>
+    <div class="md-toolbar-tools">
+        <span >{{detail.label}}</span>
+        <span flex="" class="flex"></span>
+        <md-button class="md-raised" ng-click="detail.deleteRecord($event)" >DELETE Item</md-button>
+    </div>
 </md-toolbar>
-
+<div ng-include="'views/objects/Item/travelDetail.html'" ng-show="detail.data.category == 1"></div>
+<div ng-include="'views/objects/Item/serviceDetail.html'" ng-show="detail.data.category == 2"></div>
+<div ng-include="'views/objects/Item/medicalDetail.html'" ng-show="detail.data.category == 3"></div>
+<div ng-include="'views/objects/Item/othersDetail.html'" ng-show="detail.data.category == 4"></div>
 <section class="md-whiteframe-z1" ng-repeat="block in detail.blocks" flex>
     <md-toolbar class="demo-toolbar md-primary">
         <div class="md-toolbar-tools">
@@ -15,66 +17,63 @@
     </md-toolbar>
     <md-content class="md-padding">
         <div layout="row" layout-wrap >
-            <div flex="50" layout="row"  ng-repeat="field in block.fields">
+            <div flex="50" layout="row" >
                 <div flex="30" class="detail-block" style="text-align:right">
-                    <strong>  {{field.fieldlabel}}</strong>
+                    <strong>Item Name</strong>
                 </div>
                 <div flex="70" class="detail-block">
-                    {{detail.data[field.fieldname]}}
+                    {{detail.data.itemname}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Opportunity</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.retrive_opportunity.name}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Date</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.date}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Cost</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.cost}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Status</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.retrive_status.name}}
+                </div>
+            </div>
+            <div flex="100" layout="row" >
+                <div flex="15" class="detail-block" style="text-align:right">
+                    <strong>Description</strong>
+                </div>
+                <div flex="85" class="detail-block">
+                    {{detail.data.description}}
+                </div>
+            </div>
+            <div flex="100" layout="row" ng-show="detail.data.attachment != ''">
+                <div flex="15" class="detail-block" style="text-align:right">
+                    <strong>Attachment</strong>
+                </div>
+                <div flex="85" class="detail-block">
+                    <img src="detail.data.attachment" width="300px" height="300px">
                 </div>
             </div>
         </div>
     </md-content>
 </section>
-<section class="md-whiteframe-z1" flex>
-    <md-toolbar class="demo-toolbar md-primary">
-        <div class="md-toolbar-tools">
-            <h3 class="ng-binding">Travel</h3>
-        </div>
-    </md-toolbar>
-    <md-content class="md-padding">
-        <div layout="row" layout-wrap >
-            <div flex="50" layout="row" >
-                <div flex="30" class="detail-block" style="text-align:right">
-                    <strong>Travel Type</strong>
-                </div>
-                <div flex="70" class="detail-block">
-                    {{detail.data.travel.travel_type}}
-                </div>
-            </div>
 
-        <div flex="50" layout="row" >
-            <div flex="30" class="detail-block" style="text-align:right">
-                <strong>Travel Sub Type</strong>
-            </div>
-            <div flex="70" class="detail-block">
-                {{detail.data.travel.travel_sub_type}}
-            </div>
-        </div>
-            <div flex="50" layout="row" >
-                <div flex="30" class="detail-block" style="text-align:right">
-                    <strong>Travel Estimate Cost</strong>
-                </div>
-                <div flex="70" class="detail-block">
-                    {{detail.data.travel.estimate_cost}}
-                </div>
-            </div>
-            <div flex="50" layout="row" >
-                <div flex="30" class="detail-block" style="text-align:right">
-                    <strong>Travel Origination</strong>
-                </div>
-                <div flex="70" class="detail-block">
-                    {{detail.data.travel.origination}}
-                </div>
-            </div>
-            <div flex="50" layout="row" >
-                <div flex="30" class="detail-block" style="text-align:right">
-                    <strong>Travel Destination</strong>
-                </div>
-                <div flex="70" class="detail-block">
-                    {{detail.data.travel.destination}}
-                </div>
-            </div>
-        </div>
-    </md-content>
-</section>

@@ -1,0 +1,64 @@
+<md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+        <span >{{detail.label}}</span>
+        <span flex="" class="flex"></span>
+        <md-button class="md-raised" href="#/{{detail.objectName}}/edit/{{detail.record}}" >EDIT</md-button>
+        <!--<md-button class="md-raised" ng-click="detail.deleteRecord($event)" >DELETE</md-button>-->
+    </div>
+</md-toolbar>
+
+<section class="md-whiteframe-z1" ng-repeat="block in detail.blocks" flex>
+    <md-toolbar class="demo-toolbar md-primary">
+        <div class="md-toolbar-tools">
+            <h3 class="ng-binding">{{block.blocklabel}}</h3>
+        </div>
+    </md-toolbar>
+    <md-content class="md-padding">
+        <div layout="row" layout-wrap>
+            <div flex="50" layout="row" class="block" ng-repeat="field in block.fields" ng-switch on="field.fieldlabel">
+                <div layout="row" layout-wrap ng-switch-when="supervisor">
+                    <div flex="30" class="detail-block" style="text-align:right">
+                        <strong>  {{field.fieldlabel}}</strong>
+                    </div>
+                    <div flex="70" class="detail-block">
+                        {{detail.data['supervisor']['user_name']}}
+                    </div>
+                </div>
+                <div layout="row" layout-wrap ng-switch-when="Role">
+                    <div flex="30" class="detail-block" style="text-align:right">
+                        <strong>  {{field.fieldlabel}}</strong>
+                    </div>
+                    <div flex="70" class="detail-block">
+                        {{detail.data['role']['name']}}
+                    </div>
+                </div>
+                <div layout="row" layout-wrap ng-switch-when="status">
+                    <div flex="30" class="detail-block" style="text-align:right">
+                        <strong>  {{field.fieldlabel}}</strong>
+                    </div>
+                    <div flex="70" class="detail-block">
+                        {{detail.data['get_status']['name']}}
+                    </div>
+                </div>
+                <div layout="row" layout-wrap ng-switch-default>
+                    <div flex="30" class="detail-block" style="text-align:right">
+                        <strong>  {{field.fieldlabel}}</strong>
+                    </div>
+                    <div flex="70" class="detail-block">
+                        {{detail.data[field.fieldname]}}
+                    </div>
+                </div>
+            </div>
+            <div flex="50" layout="row" class="block">
+            <div layout="row" layout-wrap>
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong> Profile </strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data['profiles'][0]['profilename']}}
+                </div>
+            </div>
+            </div>
+        </div>
+    </md-content>
+</section>

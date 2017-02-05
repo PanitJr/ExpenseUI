@@ -1,9 +1,10 @@
+<form ng-submit="edit.save()">
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <span ng-hide="!edit.record.length">{{edit.label}}</span>
     <span ng-show="!edit.record.length">New {{edit.objectName}}</span>
     <span flex="" class="flex"></span>
-    <md-button class="md-raised md-primary" style="color:#fff;" ng-click="edit.save()" >SAVE</md-button>
+    <md-button class="md-raised md-primary" style="color:#fff;" type="submit">SAVE</md-button>
     <a class="md-primary md-button md-ink-ripple" href="javascript:history.back()" >Cancel</a>
   </div>
 </md-toolbar>
@@ -23,7 +24,7 @@
           <div flex="70" flex-xs="100" ng-switch on="field.type.id">
             <div ng-switch-when="5" class="field">
               <md-input-container class="md-block" flex >
-                <md-select ng-model="edit.data[field.fieldname]" >
+                <md-select ng-model="edit.data[field.fieldname]" ng-required="{{field.required}}">
                   <md-option ng-repeat="picklist in field[field.fieldlabel]" value="{{picklist.id}}" >
                     {{picklist.name}}
                     {{picklist.user_name}}
@@ -33,7 +34,7 @@
             </div>
             <div ng-switch-default class="field">
               <md-input-container class="md-block" flex >
-                <input ng-model="edit.data[field.fieldname]" type="{{field.type.fieldtype}}">
+                <input ng-model="edit.data[field.fieldname]" type="{{field.type.fieldtype}}" ng-required="{{field.required}}">
               </md-input-container>
             </div>
           </div>
@@ -42,3 +43,4 @@
   </md-content>
 </section>
 
+</form>

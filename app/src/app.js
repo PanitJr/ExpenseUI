@@ -39,6 +39,7 @@
   .run(['$rootScope',function($rootScope)
   {
     $rootScope.apiurl = "http://localhost:8000/api/";
+    // $rootScope.apiurl = "http://ccecms.demosolution.com:8080/api/";
   }]);
 
 })();

@@ -32,7 +32,7 @@
 </md-content>
 <!--End Default value-->
 <!--Form For New Item-->
-<form ng-repeat="object in dashboard.objectList " ng-submit="dashboard.save(object,$index)">
+<form ng-repeat="object in dashboard.objectList " ng-submit="dashboard.save(object,$index)" ng-animate="'animate'">
     <section class="md-whiteframe-z1" ng-repeat="block in object.blocks" flex style="margin-bottom: 20px;">
         <md-toolbar class="demo-toolbar" style="background-color:#2191c0;">
             <div class="md-toolbar-tools">
@@ -45,9 +45,7 @@
                     <div class="block-field" flex-xs="100" layout="row" >
                         <div flex="100" class="block-field" flex-xs="100" >
                             <md-input-container class="md-block" flex >
-
                                 <label>Travel Type</label>
-
                                 <md-select ng-model="object.data.travel.traveltype" >
                                     <md-option ng-repeat="picklist in block.fields.traveltype" value="{{picklist.id}}" >
                                         {{picklist.name}}
@@ -57,10 +55,8 @@
                         </div>
                         <div flex="100" class="block-field" flex-xs="100" ng-show="object.data.travel.traveltype == 1">
                             <md-input-container class="md-block" flex >
-
                                 <label>Travel Sub Type</label>
-
-                                <md-select ng-model="object.data.travel.travelsubtype" >
+                                <md-select ng-model="object.data.travel.travelsubtype" ng-change="dashboard.getStation(object.data)">
                                     <md-option ng-repeat="picklist in block.fields.travelsubtype" value="{{picklist.id}}" >
                                         {{picklist.name}}
                                     </md-option>
@@ -69,32 +65,45 @@
                         </div>
                     </div>
                     <div class="block-field" flex-xs="100" layout="row" >
-                        <div flex="100" class="block-field" flex-xs="100" >
+                        <div flex="100" class="block-field" flex-xs="100" ng-show="object.data.travelField">
                             <md-input-container class="md-block" flex >
-
                                 <label>Origination</label>
-
                                 <input ng-model="object.data.travel.origination" type="{{field.type.fieldtype}}">
                             </md-input-container>
                         </div>
-                        <div flex="100" class="block-field" flex-xs="100" >
+                        <div flex="100" class="block-field" flex-xs="100" ng-show="object.data.travelField">
                             <md-input-container class="md-block" flex >
-
                                 <label>Destination</label>
-
                                 <input ng-model="object.data.travel.destination" type="{{field.type.fieldtype}}">
+                            </md-input-container>
+                        </div>
+                        <div flex="100" class="block-field" flex-xs="100" ng-hide="object.data.travelField">
+                            <md-input-container class="md-block" flex >
+                                <label>Origination</label>
+                                <md-select ng-model="object.data.travel.origination" ng-change="dashboard.getitemcost(object.data)">
+                                    <md-option ng-repeat="picklist in dashboard.Ostations" value="{{picklist.id}}" selected="first">
+                                        {{picklist.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div flex="100" class="block-field" flex-xs="100" ng-hide="object.data.travelField">
+                            <md-input-container class="md-block" flex >
+                                <label>Destination</label>
+                                <md-select ng-model="object.data.travel.destination" ng-change="dashboard.getitemcost(object.data)">
+                                    <md-option ng-repeat="picklist in dashboard.Dstations" value="{{picklist.id}}">
+                                        {{picklist.name}}
+                                    </md-option>
+                                </md-select>
                             </md-input-container>
                         </div>
                     </div>
                 </div>
-
                 <div ng-switch-when="2" flex="100">
                     <div class="block-field" flex-xs="100" layout="row" >
                         <div flex="100" class="block-field" flex-xs="100" >
                             <md-input-container class="md-block" flex >
-
                                 <label>Service Type</label>
-
                                 <md-select ng-model="object.data.service.servicetype" >
                                     <md-option ng-repeat="picklist in block.fields.servicetype" value="{{picklist.id}}" >
                                         {{picklist.name}}
@@ -104,9 +113,7 @@
                         </div>
                         <div flex="100" class="block-field" flex-xs="100" >
                             <md-input-container class="md-block" flex >
-
                             <label>Service Name</label>
-
                             <input ng-model="object.data.service.name" type="text">
                             </md-input-container>
                         </div>
@@ -116,39 +123,23 @@
                     <div class="block-field" flex-xs="100" layout="row" >
                         <div flex="100" class="block-field" flex-xs="100" >
                             <md-input-container class="md-block" flex >
-
                                 <label>Symptom</label>
-
                                 <input ng-model="object.data.medical.symptomname" type="text">
                             </md-input-container>
                         </div>
                         <div flex="100" class="block-field" flex-xs="100" >
                             <md-input-container class="md-block" flex >
-
                                 <label>Hospital</label>
-
                                 <input ng-model="object.data.medical.hospital" type="text">
                             </md-input-container>
                         </div>
                     </div>
-                    <!--<div class="block-field" flex-xs="100" layout="row" >-->
-                        <!--<div flex="100" class="block-field" flex-xs="100" >-->
-                            <!--<md-input-container class="md-block" flex >-->
-
-                                <!--<label>Symptom Description</label>-->
-
-                                <!--<textarea ng-model="object.data.medical.symptom" md-maxlength="300" rows="5"></textarea>-->
-                            <!--</md-input-container>-->
-                        <!--</div>-->
-                    <!--</div>-->
                 </div>
                 <div ng-switch-when="4" flex="100">
                     <div class="block-field" flex-xs="100" layout="row" >
                         <div flex="100" class="block-field" flex-xs="100" >
                             <md-input-container class="md-block" flex >
-
                                 <label>Topic</label>
-
                                 <input ng-model="object.data.other.topic" type="text">
                             </md-input-container>
                         </div>
@@ -160,10 +151,8 @@
                     <div flex="100" flex-xs="100" ng-switch on="field.type.id">
                         <div ng-switch-when="5" class="field">
                             <md-input-container class="md-block" flex >
-
                                 <label>{{field.fieldlabel}}</label>
-
-                                <md-select ng-model="object.data[field.fieldname]" >
+                                <md-select ng-model="object.data[field.fieldname]" ng-required="{{field.required}}">
                                     <md-option ng-repeat="picklist in field[field.fieldlabel]" value="{{picklist.id}}" >
                                         {{picklist.name}}
                                         {{picklist.user_name}}
@@ -173,106 +162,26 @@
                         </div>
                         <div ng-switch-when="4" class="field">
                             <md-input-container class="md-block" flex >
-
                                 <label>{{field.fieldlabel}}</label>
-                                <textarea ng-model="object.data[field.fieldname]" md-maxlength="300" rows="5" md-select-on-focus></textarea>
-
+                                <textarea ng-model="object.data[field.fieldname]" md-maxlength="300" rows="5" md-select-on-focus ng-required="{{field.required}}"></textarea>
                             </md-input-container>
                         </div>
                         <div ng-switch-when="6" class="field">
-
-                            <md-datepicker ng-model="object.data[field.fieldname]" ></md-datepicker>
-
+                            <md-datepicker ng-model="object.data.date" ng-required="{{field.required}}" ></md-datepicker>
                         </div>
                         <div ng-switch-when="7" class="field">
                             <md-input-container class="md-block" flex >
-
                                 <label>{{field.fieldlabel}}</label>
-
-                                <input ng-model="object.data[field.fieldname]" type="number">
+                                <input ng-model="object.data[field.fieldname]" type="number" ng-required="{{field.required}}" ng-disabled="!object.data.travelField">
                             </md-input-container>
                         </div>
+                        <div ng-switch-when="2" class="field">
+                        </div>
                         <div ng-switch-default class="field">
-                            <!--<md-input-container class="md-block" flex >-->
-
-                                <!--<label>{{field.fieldlabel}}</label>-->
-
-                                <!--<input ng-model="object.data[field.fieldname]" type="{{field.type.fieldtype}}">-->
-                            <!--</md-input-container>-->
                         </div>
                     </div>
                 </div>
 
-
-                <!--<div flex="100"class="block-field" flex-xs="100" layout="row" style="margin-top: 20px;" >-->
-                <!--<md-input-container class="md-block" flex="85" flex-xs="85">-->
-                <!--<label>Opportunity</label>-->
-                <!--<md-select ng-model="object.data.item.opportunity" ng-required="true" >-->
-                <!--<md-option ng-repeat="type in dashboard.listdatasOpportunity" value="{{type.opportunity}}">-->
-                <!--{{type.opportunity}}-->
-                <!--</md-option>-->
-                <!--</md-select>-->
-                <!--</md-input-container>-->
-                <!--<div flex="13" flex-xs="13" >-->
-                <!--<md-datepicker ng-model="object.data.item_date" ng-required="true"></md-datepicker>-->
-                <!--</div>-->
-                <!--</div>-->
-
-                <!--<div flex="50"class="block-field" flex-xs="100" layout="row" ng-show="object.objectname=='Travel'" style="margin-top: 20px;">-->
-                <!--<div flex="100" flex-xs="100" >-->
-                <!--<md-input-container class="md-block" flex-gt-sm>-->
-                <!--<label>Travel Type</label>-->
-                <!--<md-select ng-model="object.data.travel_type" ng-required="true">-->
-                <!--<md-option ng-repeat="type in dashboard.listdatasTravelType" value="{{type.traveltypename}}" ng-selected="$first">-->
-                <!--{{type.traveltypename}}-->
-                <!--</md-option>-->
-                <!--</md-select>-->
-                <!--<div ng-messages="object.data.travel_type.$error">-->
-                <!--<div ng-message='required'>This is required!</div>-->
-                <!--</div>-->
-                <!--</md-input-container>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div flex="50"class="block-field" flex-xs="100" style="margin-top: 20px;" layout="row" >-->
-                    <!--<div flex="100" flex-xs="100" >-->
-                        <!--<md-input-container class="md-block" flex-gt-sm>-->
-                            <!--<label>Travel sub type</label>-->
-                            <!--<md-select ng-model="object.data.travel_sub_type">-->
-                                <!--<md-option ng-repeat="type in dashboard.listdatasTravelSubType" value="{{type.travelsubtypename}}"-->
-                                           <!--ng-disabled="object.data.travel_type != 'Public Transport'" ng-required="object.data.travel_type == 'Public Transport'">-->
-                                    <!--{{type.travelsubtypename}}-->
-                                <!--</md-option>-->
-                            <!--</md-select>-->
-                        <!--</md-input-container>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div flex="50"class="block-field" flex-xs="100" style="margin-top: 20px;" layout="row" ng-show="object.objectname =='Service'">-->
-                <!--<div flex="100" flex-xs="100" >-->
-                <!--<md-input-container class="md-block" flex-gt-sm>-->
-                <!--<label>Service Type</label>-->
-                <!--<md-select ng-model="object.data.service_type" ng-required="true">-->
-                <!--<md-option ng-repeat="type in dashboard.listdatasServiceType" value="{{type.servicetypename}}">-->
-                <!--{{type.servicetypename}}-->
-                <!--</md-option>-->
-                <!--</md-select>-->
-                <!--</md-input-container>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div style="margin-top: 20px;" flex="50"class="block-field" flex-xs="100" layout="row" ng-include="'views/layout/field/travelEndPoint.html'"></div>-->
-                <!--<div flex="50"class="block-field" flex-xs="100" layout="row" style="margin-top: 20px;" >-->
-                <!--<div flex="100" flex-xs="100" >-->
-                <!--<md-input-container class="md-block" flex>-->
-                <!--<label>Cost</label>-->
-                <!--<input  ng-model="object.data.item.cost" type="Number" ng-required="true" min="1" ng-disabled="object.data.travel_sub_type =='BTS' || object.data.travel_sub_type =='MRT' || object.data.travel_sub_type =='BRT' || object.data.travel_sub_type =='Airport Rail Link'">-->
-                <!--</md-input-container>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div flex="100"class="block-field" flex-xs="100" layout="row" style="margin-top: 20px;">-->
-                <!--<md-input-container class="md-block" flex>-->
-                <!--<label>Description</label>-->
-                <!--<textarea ng-model="object.data.item.description"  md-maxlength="250" rows="3" md-select-on-focus></textarea>-->
-                <!--</md-input-container>-->
-                <!--</div>-->
                 <div flex="60" flex-offset="15" layout-wrap style="margin-top: 20px;" >
                     <div flex="25" flex-xs="0"></div>
                     <div flex="100" class="block-field" flex-xs="100" layout="row" style="align-content: center">
@@ -291,34 +200,28 @@
 </form>
 <br/>
 <!--End Form-->
-<!--Item List-->
+<!--Item dashboard-->
 <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-        <div layout-gt-sm="row">
-            <span class="mdl-chip" >
-                <span class="mdl-chip mdl-chip--deletable ">
-                    <span class="mdl-chip__text">Item List</span>
-                </span>
-            </span>
-        </div>
+        <span>{{dashboard.objectName}}</span>
         <md-button class="md-icon-button" aria-label="Filter" ng-click="dashboard.filterBtn = !dashboard.filterBtn">
             <i ng-show="!dashboard.filterBtn" class="material-icons">search</i>
             <i ng-hide="!dashboard.filterBtn" class="material-icons">arrow_drop_up</i>
         </md-button>
     </div>
 
-    <form ng-hide="!dashboard.filterBtn" ng-submit="dashboard.loadList('Item',dashboard.queryItem)">
+    <form ng-hide="!dashboard.filterBtn" ng-submit="dashboard.loadList(dashboard.objectName,dashboard.query)">
         <md-content layout="row"  layout-align="center center">
 
             <md-input-container flex="60" md-no-float class="md-block" >
                 <md-icon class="material-icons">search</md-icon>
-                <input   ng-model="dashboard.queryItem.search" type="text" placeholder="Search">
+                <input   ng-model="dashboard.query.search" type="text" placeholder="Search">
 
             </md-input-container>
 
             <md-button type="button"
                        class="md-icon-button md-button"
-                       ng-hide="!dashboard.queryItem.search.length"
+                       ng-hide="!dashboard.query.search.length"
                        ng-click="dashboard.cancleSearch()"
             ><i class="material-icons">clear</i></md-button>
             <md-button type="submit" class="md-raised">Search</md-button>
@@ -327,23 +230,25 @@
 </md-toolbar>
 
 <md-table-container>
-    <table md-table md-row-select multiple ng-model="dashboard.selected" md-progress="dashboard.promiseItem">
-        <thead md-head md-order="dashboard.queryItem.order" md-on-reorder="dashboard.onReorder">
+    <table md-table md-row-select ng-model="dashboard.selected" md-progress="dashboard.promise">
+        <thead md-head md-order="dashboard.query.order" md-on-reorder="dashboard.onReorder">
         <tr md-row>
-            <th md-column ng-repeat="(label,fieldname) in dashboard.headsItem" md-order-by="{{fieldname}}">{{label}}</th>
+            <th md-column ng-repeat="(label , fieldname) in dashboard.heads" md-order-by="{{fieldname}}">{{label}}</th>
             <th md-column width="50"></th>
         </tr>
         </thead>
         <tbody md-body>
-        <tr md-row md-select="listdata" md-select-id="{{listdata.id}}" md-auto-select ng-repeat="listdata in dashboard.listdatasItem" ng-show="listdata['status'] != 'submited'">
-            <td md-cell ng-repeat="fieldname in dashboard.headsItem" ng-click="dashboard.getDetail(listdata.id)">
+        <tr md-row md-select="listdata" md-select-id="{{listdata.id}}" md-auto-select ng-repeat="listdata in dashboard.listdatas">
+            <td md-cell ng-repeat="fieldname in dashboard.heads" ng-click="dashboard.getDetail(listdata.id)">
                 <div ng-switch="fieldname">
-                    <div ng-switch-when="attachment"><img src="{{listdata[fieldname]}}" alt="" style="width:30px;height:30px;"></div>
+                    <div ng-switch-when="status">{{listdata['retrive_status']['name']}}</div>
+                    <div ng-switch-when="opportunity">{{listdata['retrive_opportunity']['name']}}</div>
+                    <div ng-switch-when="category">{{listdata['retrive_category']['name']}}</div>
                     <div ng-switch-default>{{listdata[fieldname]}}</div>
                 </div>
             </td>
             <td md-cell >
-                <md-button href="#/Item/detail/{{listdata.id}}"
+                <md-button href="#/{{dashboard.objectName}}/detail/{{listdata.id}}"
                            class="md-icon-button launch" >
                     <i class="material-icons" >more_vert</i>
                 </md-button>
@@ -354,14 +259,14 @@
     </table>
 </md-table-container>
 
-<md-table-pagination md-limit="dashboard.queryItem.limit" md-page="dashboard.queryItem.page" md-options="dashboard.limitoption"
-                     md-total="{{dashboard.totalItem}}" md-on-paginate="dashboard.onPaginate" md-page-select></md-table-pagination>
+<md-table-pagination md-limit="dashboard.query.limit" md-page="dashboard.query.page" md-options="dashboard.limitoption"
+                     md-total="{{dashboard.total}}" md-on-paginate="dashboard.onPaginate" md-page-select></md-table-pagination>
 <!--End Item List-->
 
 <!--Button list-->
 <md-content>
     <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
         <md-button class="md-raised md-primary" ng-click="dashboard.clone()" style="background-color: #2191c0">clone</md-button>
-        <md-button class="md-raised md-primary" ng-click="dashboard.submitToExpense()" style="background-color: #2191c0">submit</md-button>
+        <md-button class="md-raised md-primary" ng-click="dashboard.submitExpense()" style="background-color: #2191c0">submit</md-button>
     </section>
 </md-content>
