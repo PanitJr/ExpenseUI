@@ -15,6 +15,7 @@
                 error_code:e.error_code,
                 error_massage : e.error_massage
             });
+            window.history.back();
         }
 
         var mergeAuthData = function(parameter) {

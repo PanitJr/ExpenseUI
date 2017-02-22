@@ -1,0 +1,124 @@
+
+<md-table-pagination md-limit="list.query.limit" md-page="list.query.page" md-options="list.limitoption"
+                     md-total="{{list.total}}" md-on-paginate="list.onPaginate" md-page-select></md-table-pagination>
+<md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+        <span>{{list.objectName}}</span>
+        <md-button class="md-icon-button" aria-label="Filter" ng-click="list.filterBtn = !list.filterBtn">
+            <i ng-show="!list.filterBtn" class="material-icons">search</i>
+            <i ng-hide="!list.filterBtn" class="material-icons">arrow_drop_up</i>
+        </md-button>
+        <span flex="" class="flex"></span>
+        <a class="md-raised md-button" href="#/{{list.objectName}}/edit" aria-label="NEW">
+            <span >NEW</span>
+        </a>
+    </div>
+
+    <form ng-hide="!list.filterBtn" ng-submit="list.loadList(list.objectName,list.query)">
+        <md-content layout="row"  layout-align="center center">
+
+            <md-input-container flex="60" md-no-float class="md-block" >
+                <md-icon class="material-icons">search</md-icon>
+                <input   ng-model="list.query.search" type="text" placeholder="Search">
+
+            </md-input-container>
+
+            <md-button type="button"
+                       class="md-icon-button md-button"
+                       ng-hide="!list.query.search.length"
+                       ng-click="list.cancleSearch()"
+            ><i class="material-icons">clear</i></md-button>
+            <md-button type="submit" class="md-raised">Search</md-button>
+        </md-content>
+    </form>
+</md-toolbar>
+<h3>NEW</h3>
+<md-divider></md-divider>
+<md-table-container>
+    <table md-table md-row-select ng-model="list.selected" md-progress="list.promise">
+        <thead md-head md-order="list.query.order" md-on-reorder="list.onReorder">
+        <tr md-row>
+            <th md-column ng-repeat="(label , fieldname) in list.heads" md-order-by="{{fieldname}}">{{label}}</th>
+            <th md-column width="50"></th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row md-select="listdata" md-select-id="{{listdata.id}}" md-auto-select ng-repeat="listdata in list.listdatas">
+            <td md-cell ng-repeat="fieldname in list.heads" ng-click="list.getDetail(listdata.id)">
+                <div ng-switch="fieldname">
+                    <div ng-switch-when="opportunity">{{listdata['retrive_opportunity']['name']}}</div>
+                    <div ng-switch-when="status">{{listdata['retrive_status']['name']}}</div>
+                    <div ng-switch-default>{{listdata[fieldname]}}</div>
+                </div>
+            </td>
+            <td md-cell >
+                <md-button href="#/{{list.objectName}}/detail/{{listdata.id}}"
+                           class="md-icon-button launch" >
+                    <i class="material-icons" >more_vert</i>
+                </md-button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</md-table-container>
+<h3>Supervisor Approved</h3>
+<md-divider></md-divider>
+<md-table-container>
+    <table md-table md-row-select ng-model="list.selected" md-progress="list.promise">
+        <thead md-head md-order="list.query.order" md-on-reorder="list.onReorder">
+        <tr md-row>
+            <th md-column ng-repeat="(label , fieldname) in list.heads" md-order-by="{{fieldname}}">{{label}}</th>
+            <th md-column width="50"></th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row md-select="listdata" md-select-id="{{listdata.id}}" md-auto-select ng-repeat="listdata in list.listSAppdatas">
+            <td md-cell ng-repeat="fieldname in list.heads" ng-click="list.getDetail(listdata.id)">
+                <div ng-switch="fieldname">
+                    <div ng-switch-when="opportunity">{{listdata['retrive_opportunity']['name']}}</div>
+                    <div ng-switch-when="status">{{listdata['retrive_status']['name']}}</div>
+                    <div ng-switch-default>{{listdata[fieldname]}}</div>
+                </div>
+            </td>
+            <td md-cell >
+                <md-button href="#/{{list.objectName}}/detail/{{listdata.id}}"
+                           class="md-icon-button launch" >
+                    <i class="material-icons" >more_vert</i>
+                </md-button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</md-table-container>
+<h3>Admin Approved</h3>
+<md-divider></md-divider>
+<md-table-container>
+    <table md-table md-row-select ng-model="list.selected" md-progress="list.promise">
+        <thead md-head md-order="list.query.order" md-on-reorder="list.onReorder">
+        <tr md-row>
+            <th md-column ng-repeat="(label , fieldname) in list.heads" md-order-by="{{fieldname}}">{{label}}</th>
+            <th md-column width="50"></th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row md-select="listdata" md-select-id="{{listdata.id}}" md-auto-select ng-repeat="listdata in list.listPaiddatas">
+            <td md-cell ng-repeat="fieldname in list.heads" ng-click="list.getDetail(listdata.id)">
+                <div ng-switch="fieldname">
+                    <div ng-switch-when="opportunity">{{listdata['retrive_opportunity']['name']}}</div>
+                    <div ng-switch-when="status">{{listdata['retrive_status']['name']}}</div>
+                    <div ng-switch-default>{{listdata[fieldname]}}</div>
+                </div>
+            </td>
+            <td md-cell >
+                <md-button href="#/{{list.objectName}}/detail/{{listdata.id}}"
+                           class="md-icon-button launch" >
+                    <i class="material-icons" >more_vert</i>
+                </md-button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</md-table-container>

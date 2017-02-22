@@ -82,7 +82,15 @@
           templateUrl: 'views/objects/Item/detail.html',
           controller: 'ItemDetailController as detail'
       });
-
+      //Expense
+      $routeProvider.when('/Expense/list', {
+          templateUrl: 'views/objects/Expense/list.html',
+          controller: 'ExpenseListController as list'
+      });
+      $routeProvider.when('/Expense/detail/:record', {
+          templateUrl: 'views/objects/Expense/detail.html',
+          controller: 'ExpenseDetailController as detail'
+      });
 
   }
 
