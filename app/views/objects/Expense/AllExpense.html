@@ -1,28 +1,82 @@
 
+<style >
+    md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon{
+        color:#4c4c4c;
+    }
+</style>
 <md-table-pagination md-limit="list.query.limit" md-page="list.query.page" md-options="list.limitoption"
                      md-total="{{list.total}}" md-on-paginate="list.onPaginate" md-page-select></md-table-pagination>
+<div flex-offset="30" layout="row"><h2>Total {{list.total}} Bath</h2></div>
 <md-toolbar class="md-table-toolbar md-default">
+
     <div class="md-toolbar-tools">
+
         <span>{{list.objectName}}</span>
         <md-button class="md-icon-button" aria-label="Filter" ng-click="list.filterBtn = !list.filterBtn">
             <i ng-show="!list.filterBtn" class="material-icons">search</i>
             <i ng-hide="!list.filterBtn" class="material-icons">arrow_drop_up</i>
         </md-button>
         <span flex="" class="flex"></span>
-        <!--<a class="md-raised md-button" href="#/{{list.objectName}}/edit" aria-label="NEW">-->
-            <!--<span >NEW</span>-->
-        <!--</a>-->
+        <md-button class="md-raised" ng-click="list.pdf()" >PDF</md-button>
     </div>
 
     <form ng-hide="!list.filterBtn" ng-submit="list.loadList(list.objectName,list.query)">
         <md-content layout="row"  layout-align="center center">
+            <md-input-container flex="20" md-no-float class="md-block" >
+            <label>Opportunity</label>
+            <md-select ng-model="list.query.userPickList.Opp" >
+                <md-option selected="first">
 
-            <md-input-container flex="60" md-no-float class="md-block" >
-                <md-icon class="material-icons">search</md-icon>
-                <input   ng-model="list.query.search" type="text" placeholder="Search">
+                </md-option>
+                <md-option ng-repeat="Opp in list.opplis" value="{{Opp.id}}">
+                    {{Opp.name}}
+                </md-option>
+            </md-select>
+            </md-input-container>
+            <!--<md-input-container flex="20" md-no-float class="md-block" >-->
+                <!--<label>Month</label>-->
+                <!--<md-select ng-model="list.query.userPickList.month">-->
+                    <!--<md-option selected="first">-->
 
+                    <!--</md-option>-->
+                    <!--<md-option ng-repeat="month in list.monthlis" value="{{month}}">-->
+                        <!--{{month}}-->
+                    <!--</md-option>-->
+                <!--</md-select>-->
+            <!--</md-input-container>-->
+            <md-input-container flex="20" md-no-float class="md-block" >
+                <label>User</label>
+                <md-select ng-model="list.query.userPickList.user">
+                    <md-option selected="first">
+
+                    </md-option>
+                    <md-option ng-repeat="user in list.userlis" value="{{user.id}}">
+                        {{user.user_name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="20" md-no-float class="md-block" >
+                <label>Status</label>
+                <md-select ng-model="list.query.userPickList.status">
+                    <md-option selected="first">
+
+                    </md-option>
+                    <md-option ng-repeat="status in list.statuslis" value="{{status.id}}">
+                        {{status.name}}
+                    </md-option>
+                </md-select>
             </md-input-container>
 
+            <md-datepicker ng-model="list.filterDate" flex ="20" style="color: #00ACC1"></md-datepicker>
+
+
+        </md-content>
+        <md-content layout="row"  layout-align="center center">
+        <md-input-container flex="60" md-no-float class="md-block" >
+        <md-icon class="material-icons">search</md-icon>
+        <input   ng-model="list.query.search" type="text" placeholder="Search">
+
+        </md-input-container>
             <md-button type="button"
                        class="md-icon-button md-button"
                        ng-hide="!list.query.search.length"
@@ -33,7 +87,7 @@
     </form>
 </md-toolbar>
 <h3 ng-show="list.listdatas.length > 0">NEW</h3>
-<md-divider ng-show="list.listdatas.length > 0"></md-divider>
+<md-divider></md-divider>
 <md-table-container ng-show="list.listdatas.length > 0">
     <table md-table md-row-select ng-model="list.selected" md-progress="list.promise">
         <thead md-head md-order="list.query.order" md-on-reorder="list.onReorder">
@@ -63,7 +117,7 @@
     </table>
 </md-table-container>
 <h3 ng-show="list.listSAppdatas.length > 0">Supervisor Approved</h3>
-<md-divider ng-show="list.listSAppdatas.length > 0"></md-divider>
+<md-divider></md-divider>
 <md-table-container ng-show="list.listSAppdatas.length > 0">
     <table md-table md-row-select ng-model="list.selected" md-progress="list.promise">
         <thead md-head md-order="list.query.order" md-on-reorder="list.onReorder">
@@ -92,9 +146,12 @@
         </tbody>
     </table>
 </md-table-container>
-<h3 ng-show="list.listPaiddatas.length > 0">Admin Approved</h3>
-<md-divider ng-show="list.listPaiddatas.length > 0"></md-divider>
-<md-table-container ng-show="list.listPaiddatas.length > 0">
+<div ng-show="list.listPaiddatas.length > 0" layout="row">
+<h3 >Admin Approved</h3>
+    <md-button class="md-raised" ng-click="list.paidExpenses(list.paidSelected)" style="margin-left: auto; height: 5px; margin-top:30px;">Paid</md-button>
+</div>
+<md-divider></md-divider>
+<md-table-container ng-show="list.listPaiddatas.length > 0" >
     <table md-table md-row-select ng-model="list.selected" md-progress="list.promise">
         <thead md-head md-order="list.query.order" md-on-reorder="list.onReorder">
         <tr md-row>

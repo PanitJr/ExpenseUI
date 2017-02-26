@@ -91,6 +91,10 @@
           templateUrl: 'views/objects/Expense/detail.html',
           controller: 'ExpenseDetailController as detail'
       });
+      $routeProvider.when('/AllExpense/list', {
+          templateUrl: 'views/objects/Expense/AllExpense.html',
+          controller: 'AllExpenseController as list'
+      });
 
   }
 

@@ -45,7 +45,10 @@
           
     function loadList(objectName,query)
     {
-      self.promise = listService.getList(objectName,query,success);  
+        self.listdatas = [];
+        self.listSAppdatas = [];
+        self.listPaiddatas = [];
+        self.promise = listService.getList(objectName,query,success);
     }
 
     function success(response)
@@ -53,6 +56,7 @@
       var listInfo = response.listInfo;
       self.heads  = response.header;        
       self.total = listInfo.total;
+
         for (var i = 0, leng = listInfo.data.length; i < leng; i++) {
           if(listInfo.data[i].status == 1){
               self.listdatas.push(listInfo.data[i]);

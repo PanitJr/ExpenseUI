@@ -3,12 +3,12 @@
   angular
        .module('layout')
        .controller('ExpenseDetailController', [
-          '$q','$scope','$routeParams','detailService','$timeout','$location','$mdDialog','$rootScope','helperService',
+          '$routeParams','detailService','$location','$mdDialog','$rootScope','helperService','$cookies','$http',
           ExpenseDetailController
        ]);
 
 
-  function ExpenseDetailController($log,$scope,$routeParams,detailService,$timeout,$location,$mdDialog,$rootScope,helperService) {
+  function ExpenseDetailController($routeParams,detailService,$location,$mdDialog,$rootScope,helperService,$cookies,$http) {
     var self = this;
     self.objectName = 'Expense';
     self.record = $routeParams.record; 
@@ -39,21 +39,55 @@
       });
 
     }
-      self.approveExpense= function () {
+      self.approveExpense= function (record) {
+          var postData = angular.extend({}, self.data || {}, {
+              token: $cookies.get('auth_token')});
+          $http.post($rootScope.apiurl+'Expense/approve/'+record+'?token='+$cookies.get('auth_token'),postData , {
+              transformRequest: angular.identity,
+              headers: {
+                  'Content-Type': undefined
+              }
+          }).error(error);
           $location.path('/'+self.objectName+'/list');
-      }
-      self.rejectExpense= function () {
+      };
+      self.rejectExpense= function (record) {
+          var postData = angular.extend({}, self.data || {}, {
+              token: $cookies.get('auth_token')});
+          $http.post($rootScope.apiurl+'Expense/reject/'+record+'?token='+$cookies.get('auth_token'),postData , {
+              transformRequest: angular.identity,
+              headers: {
+                  'Content-Type': undefined
+              }
+          }).error(error);
           $location.path('/'+self.objectName+'/list');
-      }
-      self.rejectItem= function () {
-          window.reload();
-      }
+      };
+      self.rejectItem= function (record) {
+          $http
+              .get($rootScope.apiurl +'Item/reject/'+record+'?token='+$cookies.get('auth_token'))
+              .then(function (res) {
+                  location.reload();
+              });
+      };
       self.pdf= function () {
-          window.reload();
-      }
+          var postData = angular.extend({}, self.data || {}, {
+              token: $cookies.get('auth_token')});
+          $http.post($rootScope.apiurl+'Expense/pdf?token='+$cookies.get('auth_token'),postData , {
+              transformRequest: angular.identity,
+              headers: {
+                  'Content-Type': undefined
+              }
+          }).error(error);
+      };
       self.getDetail = function(record)
       {
           $location.path('/Item/detail/'+record);
+      };
+      function error(e) {
+          helperService.alert_error({
+              error_code:e.error_code,
+              error_massage : e.error_massage
+          });
+          window.history.back();
       }
   }
 

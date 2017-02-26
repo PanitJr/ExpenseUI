@@ -3,7 +3,7 @@
     <span >{{detail.label}}</span>
     <span flex="" class="flex"></span>
     <md-button class="md-raised" ng-click="detail.approveExpense()" disabled="{{detail.data.approveAvilable}}">Approve</md-button>
-    <md-button class="md-raised" ng-click="detail.rejectExpense()" >Reject</md-button>
+    <md-button class="md-raised" ng-click="detail.rejectExpense()" ng-hide="detail.data.status == 3">Reject</md-button>
       <md-button class="md-raised" ng-click="detail.pdf()" >PDF</md-button>
   </div>
 </md-toolbar>
@@ -127,16 +127,16 @@
     <table md-table >
         <thead md-head>
         <tr md-row>
-            <th md-column>Action</th>
-            <th md-column>Approver</th>
             <th md-column>Date</th>
+            <th md-column>Approver</th>
+            <th md-column>Action</th>
         </tr>
         </thead>
         <tbody md-body>
         <tr md-row ng-repeat="approve in detail.data.retrive_approve" >
-            <!--<td md-cell>{{approve.itemname}}</td>-->
-            <!--<td md-cell>{{approve.retrive_category.name}}</td>-->
-            <!--<td md-cell>{{approve.description}}</td>-->
+            <td md-cell>{{approve.Date}}</td>
+            <td md-cell>{{approve.retrieve_user.user_name}}</td>
+            <td md-cell>{{approve.status.name}}</td>
         </tr>
         </tbody>
     </table>
