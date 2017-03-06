@@ -1,0 +1,43 @@
+<section class="md-whiteframe-z1" flex>
+    <md-toolbar class="demo-toolbar md-primary">
+        <div class="md-toolbar-tools">
+            <h3 class="ng-binding">Travel</h3>
+        </div>
+    </md-toolbar>
+    <md-content class="md-padding">
+        <div layout="row" layout-wrap >
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Travel Type</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.travel_type.name}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Travel Sub Type</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.travel_sub_type.name}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Origination</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.origination.name}}
+                </div>
+            </div>
+            <div flex="50" layout="row" >
+                <div flex="30" class="detail-block" style="text-align:right">
+                    <strong>Destination</strong>
+                </div>
+                <div flex="70" class="detail-block">
+                    {{detail.data.travel.destination.name}}
+                </div>
+            </div>
+        </div>
+    </md-content>
+</section>

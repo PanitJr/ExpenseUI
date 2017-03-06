@@ -2,7 +2,7 @@
     <div class="md-toolbar-tools">
         <span >{{detail.label}}</span>
         <span flex="" class="flex"></span>
-        <md-button class="md-raised" ng-click="detail.deleteRecord($event)" ng-show="detail.data.status != 4">DELETE Item</md-button>
+        <md-button class="md-raised" ng-click="detail.deleteRecord($event)" ng-show="detail.data.status != 2">DELETE Item</md-button>
     </div>
 </md-toolbar>
 <div ng-include="'views/objects/Item/travelDetail.html'" ng-show="detail.data.category == 1"></div>

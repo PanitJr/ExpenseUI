@@ -23,6 +23,26 @@
     },
     helperService.error_page);
 
+      // self.confirm =  {};
+      self.showPrompt = function(ev) {
+          // Appending dialog to document.body to cover sidenav in docs app
+          var confirm = $mdDialog.prompt()
+              .title('What would you name your dog?')
+              .textContent('Bowser is a common name.')
+              .placeholder('Dog name')
+              .ariaLabel('Dog name')
+              .initialValue('Buddy')
+              .targetEvent(ev)
+              .ok('Okay!')
+              .cancel('I\'m a cat person');
+
+          $mdDialog.show(confirm).then(function(result) {
+              self.comment = 'You decided to name your dog ' + result + '.';
+          }, function() {
+              self.comment = 'You didn\'t name your dog.';
+          });
+      };
+
     function deleteRecord(ev)
     {
       var confirm = $mdDialog.confirm()
@@ -89,6 +109,7 @@
           });
           window.history.back();
       }
+
   }
 
 })();

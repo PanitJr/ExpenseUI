@@ -2,7 +2,7 @@
   <div class="md-toolbar-tools">
     <span >{{detail.label}}</span>
     <span flex="" class="flex"></span>
-    <md-button class="md-raised" ng-click="detail.approveExpense()" disabled="{{detail.data.approveAvilable}}">Approve</md-button>
+    <md-button class="md-raised" ng-click="detail.showPrompt($event)" ng-hide="detail.data.approveAvilable">Approve</md-button>
     <md-button class="md-raised" ng-click="detail.rejectExpense()" ng-hide="detail.data.status == 3">Reject</md-button>
       <md-button class="md-raised" ng-click="detail.pdf()" >PDF</md-button>
   </div>
